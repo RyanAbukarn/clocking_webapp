@@ -1,15 +1,17 @@
-import React, { useState, userEffect } from "react";
+import React, { useState, useContext } from "react";
 import Axios from "axios";
-
 function Login() {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
 
-  const submitUser = () => {
-    Axios.post("http://localhost:3001/api/user", {
+  const submitUser = ({ singout }) => {
+    Axios.post("http://localhost:3001/api/user/login", {
       password: password,
       email: email,
-    }).then();
+    }).then((res) => {
+      singout(true);
+      localStorage.setItem("token", true);
+    });
   };
   return (
     <div className="App">

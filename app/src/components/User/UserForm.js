@@ -7,7 +7,7 @@ function UserForm() {
   const [email, setEmail] = useState("");
 
   const submitUser = () => {
-    Axios.post("http://localhost:3001/api/user", {
+    Axios.post("http://localhost:3001/api/user/user_create", {
       fullname: fullname,
       password: password,
       email: email,
