@@ -7,7 +7,7 @@ const user = require("./user/user");
 app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.listen(3001, () => {
+app.listen(3000, () => {
   console.log("app is running");
 });
 

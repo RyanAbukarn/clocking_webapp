@@ -1,18 +1,28 @@
-import React, { useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import Axios from "axios";
-function Login() {
+import { useNavigate } from "react-router-dom";
+
+function Login({ setIsAuthenticated, isAuthenticated }) {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const navigate = useNavigate();
 
-  const submitUser = ({ singout }) => {
-    Axios.post("http://localhost:3001/api/user/login", {
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/profile");
+    }
+  }, [isAuthenticated])
+
+  const submitUser = () => {
+    Axios.post("http://localhost:3000/api/user/login", {
       password: password,
       email: email,
     }).then((res) => {
-      singout(true);
       localStorage.setItem("token", true);
+      setIsAuthenticated(true)
     });
   };
+
   return (
     <div className="App">
       <label>email</label>

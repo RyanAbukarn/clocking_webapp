@@ -1,4 +1,4 @@
-import React, { useState, userEffect } from "react";
+import React, { useState } from "react";
 import Axios from "axios";
 
 function UserForm() {
@@ -7,7 +7,7 @@ function UserForm() {
   const [email, setEmail] = useState("");
 
   const submitUser = () => {
-    Axios.post("http://localhost:3001/api/user/user_create", {
+    Axios.post("http://localhost:3000/api/user/user_create", {
       fullname: fullname,
       password: password,
       email: email,

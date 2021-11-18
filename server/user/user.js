@@ -6,7 +6,7 @@ const create_user = (req, res) => {
   const email = req.body.email;
   const inserUser =
     "INSERT INTO users (full_name, email, encrypted_password) VALUES (?, ?, ?)";
-  db.query(inserUser, [fullname, password, email], (err, result) => {
+  db.query(inserUser, [fullname, email, password], (err, result) => {
     if (err) res.send(false);
     else res.send(true);
   });
