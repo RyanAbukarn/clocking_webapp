@@ -11,15 +11,17 @@ function Login({ setIsAuthenticated, isAuthenticated }) {
     if (isAuthenticated) {
       navigate("/profile");
     }
-  }, [isAuthenticated])
+  }, [isAuthenticated, navigate]);
 
   const submitUser = () => {
     Axios.post("http://localhost:3000/api/user/login", {
       password: password,
       email: email,
     }).then((res) => {
+      console.log(res);
       localStorage.setItem("token", true);
-      setIsAuthenticated(true)
+      localStorage.setItem("userInfo", JSON.stringify(res.data));
+      setIsAuthenticated(true);
     });
   };
 
