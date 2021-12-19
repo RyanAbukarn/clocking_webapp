@@ -18,7 +18,6 @@ function Login({ setIsAuthenticated, isAuthenticated }) {
       password: password,
       email: email,
     }).then((res) => {
-      console.log(res);
       localStorage.setItem("token", true);
       localStorage.setItem("userInfo", JSON.stringify(res.data));
       setIsAuthenticated(true);
@@ -43,7 +42,7 @@ function Login({ setIsAuthenticated, isAuthenticated }) {
           setPassword(e.target.value);
         }}
       />
-      <button onClick={submitUser}>Create</button>
+      <button onClick={submitUser}>Log In</button>
     </div>
   );
 }

@@ -5,32 +5,25 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 const AppNavbar = ({ isAuthenticated, setIsAuthenticated }) => {
   const navigate = useNavigate();
+  const fullName = isAuthenticated ? JSON.parse(localStorage.userInfo).full_name : '';
 
   const authLinks = (
     <>
-      <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-      <Navbar.Collapse id="responsive-navbar-nav">
-        <Nav className="me-auto">
-          <Nav.Link href="#features">My teams</Nav.Link>
-          <Nav.Link href="#deets">My daily activies</Nav.Link>
-          <Nav.Link href="#pricing">My logs</Nav.Link>
-        </Nav>
-        <Nav>
-          <Nav.Link href="#deets">My account</Nav.Link>
-          <Button
-            variant="outline-success"
-            onClick={(_) => {
-              localStorage.setItem("token", false);
-              localStorage.setItem("userInfo", "");
+      <Nav>
+        <Nav.Link href="#deets">signed in as: <u>{fullName}</u></Nav.Link>
+        <Button
+          variant="outline-success"
+          onClick={(_) => {
+            localStorage.setItem("token", false);
+            localStorage.setItem("userInfo", "");
 
-              setIsAuthenticated(false);
-              navigate("/");
-            }}
-          >
-            Logout
-          </Button>
-        </Nav>
-      </Navbar.Collapse>
+            setIsAuthenticated(false);
+            navigate("/");
+          }}
+        >
+          Logout
+        </Button>
+      </Nav>
     </>
   );
 

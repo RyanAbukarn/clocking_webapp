@@ -5,19 +5,18 @@ import Navbar from "../AppNavbar/AppNavbar";
 import Login from "../Login/Login";
 import UserForm from "../User/UserForm";
 import Profile from "../Profile/Profile";
-import Header from "../Header/Header";
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(localStorage.getItem("token") === "true")
+  const [isAuthenticated, setIsAuthenticated] = useState(localStorage.getItem("token") === "true");
+  const [userId, setUserId] = useState()
 
   return <BrowserRouter>
     <div className="App">
-      <Header />
       <Navbar isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />
       <Routes>
-        <Route exact path="/" element={<Login isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />} />
+        <Route exact path="/" element={<Login isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} setUserId={setUserId}/>} />
         <Route path="/sign_up" element={<UserForm />} />
-        <Route path="/profile" element={<Profile isAuthenticated={isAuthenticated} />} />
+        <Route path="/profile" element={<Profile isAuthenticated={isAuthenticated} userId={userId} />} />
       </Routes>
     </div>
   </BrowserRouter>
