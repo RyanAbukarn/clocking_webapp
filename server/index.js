@@ -1,29 +1,39 @@
 const express = require("express");
+const cors = require("cors");
 const app = express();
 const bodyParser = require("body-parser");
-const mysql = require("mysql");
-const cors = require("cors");
+
+const user = require("./user/user");
+const event = require("./event/event");
+
 app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.listen(3001, () => {
+app.listen(3000, () => {
   console.log("app is running");
 });
 
-const db = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "",
-  database: "clocking_app",
+// POST - api/user/user_create 
+app.post("/api/user/user_create", (req, _) => {
+  user.create_user(req, _);
 });
 
-app.post("/api/user", (req, res) => {
-  const fullname = req.body.fullname;
-  const password = req.body.password;
-  const email = req.body.email;
-  const inserUser =
-    "INSERT INTO users (full_name, email, encrypted_password) VALUES (?, ?, ?)";
-  db.query(inserUser, [fullname, password, email], (err, result) => {
-    console.log(err, result);
-  });
+// POST - api/user/login 
+app.post("/api/user/login", (req, res) => {
+  user.login(req, res);
 });
+
+app.get("/api/user/team", (req, res) => {
+  user.my_team_logs(req, res);
+});
+
+// POST - api/time_log
+app.post("/api/event", (req, res) => {
+  event.add_event(req, res);
+});
+
+// GET - api/time_log
+app.get("/api/event", (req, res) => {
+  event.get_events(req, res);
+});
+

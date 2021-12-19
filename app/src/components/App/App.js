@@ -1,23 +1,25 @@
-import React, { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import UserForm from "../User/UserForm";
+import { useState } from "react";
+import React from "react";
+import Navbar from "../AppNavbar/AppNavbar";
 import Login from "../Login/Login";
-function App() {
-  const [token, setToken] = useState("");
+import UserForm from "../User/UserForm";
+import Profile from "../Profile/Profile";
 
-  return (
-    <div className="wrapper">
-      <h1>Clocking App</h1>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/sign_in" element={<UserForm />}></Route>
-        </Routes>
-        <Routes>
-          <Route path="/" element={<Login />}></Route>
-        </Routes>
-      </BrowserRouter>
+function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(localStorage.getItem("token") === "true");
+  const [userId, setUserId] = useState()
+
+  return <BrowserRouter>
+    <div className="App">
+      <Navbar isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />
+      <Routes>
+        <Route exact path="/" element={<Login isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} setUserId={setUserId}/>} />
+        <Route path="/sign_up" element={<UserForm />} />
+        <Route path="/profile" element={<Profile isAuthenticated={isAuthenticated} userId={userId} />} />
+      </Routes>
     </div>
-  );
+  </BrowserRouter>
 }
 
 export default App;

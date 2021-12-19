@@ -1,36 +1,60 @@
-import React, { useState, userEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { Form, Button, Container } from "react-bootstrap";
 
-function Login() {
+function Login({ setIsAuthenticated, isAuthenticated }) {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/profile");
+    }
+  }, [isAuthenticated, navigate]);
 
   const submitUser = () => {
-    Axios.post("http://localhost:3001/api/user", {
+    Axios.post("http://localhost:3000/api/user/login", {
       password: password,
       email: email,
-    }).then();
+    }).then((res) => {
+      localStorage.setItem("token", true);
+      localStorage.setItem("userInfo", JSON.stringify(res.data));
+      setIsAuthenticated(true);
+    });
   };
+
   return (
-    <div className="App">
-      <label>email</label>
-      <input
-        type="text"
-        name="email"
-        onChange={(e) => {
-          setEmail(e.target.value);
-        }}
-      />
-      <label>password</label>
-      <input
-        type="password"
-        name="password"
-        onChange={(e) => {
-          setPassword(e.target.value);
-        }}
-      />
-      <button onClick={submitUser}>Create</button>
-    </div>
+    <Container className="mt-4">
+      <h2 className="pb-2">Login</h2>
+      <Form>
+        <Form.Group className="mb-3" controlId="Email">
+          <Form.Label>Email address</Form.Label>
+          <Form.Control
+            type="email"
+            placeholder="Enter email"
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
+          />
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="Password">
+          <Form.Label>Password</Form.Label>
+          <Form.Control
+            type="password"
+            placeholder="Password"
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
+          />
+        </Form.Group>
+        <Button variant="primary" type="submit" onClick={submitUser}>
+          Log In
+        </Button>
+      </Form>
+    </Container>
   );
 }
 
