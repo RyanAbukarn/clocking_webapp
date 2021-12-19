@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { Form, Button, Container } from "react-bootstrap";
 
 function Login({ setIsAuthenticated, isAuthenticated }) {
   const [password, setPassword] = useState("");
@@ -25,25 +26,35 @@ function Login({ setIsAuthenticated, isAuthenticated }) {
   };
 
   return (
-    <div className="App">
-      <label>email</label>
-      <input
-        type="text"
-        name="email"
-        onChange={(e) => {
-          setEmail(e.target.value);
-        }}
-      />
-      <label>password</label>
-      <input
-        type="password"
-        name="password"
-        onChange={(e) => {
-          setPassword(e.target.value);
-        }}
-      />
-      <button onClick={submitUser}>Log In</button>
-    </div>
+    <Container className="mt-4">
+      <h2 className="pb-2">Login</h2>
+      <Form>
+        <Form.Group className="mb-3" controlId="Email">
+          <Form.Label>Email address</Form.Label>
+          <Form.Control
+            type="email"
+            placeholder="Enter email"
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
+          />
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="Password">
+          <Form.Label>Password</Form.Label>
+          <Form.Control
+            type="password"
+            placeholder="Password"
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
+          />
+        </Form.Group>
+        <Button variant="primary" type="submit" onClick={submitUser}>
+          Log In
+        </Button>
+      </Form>
+    </Container>
   );
 }
 

@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
+import { Container } from "react-bootstrap";
 import Axios from "axios";
 import { useNavigate } from "react-router-dom";
 import TeamPanel from "../TeamLogs/TeamLogs";
@@ -21,18 +22,18 @@ export default function Profile({ isAuthenticated }) {
         (res) => {
           const { data } = res;
           setEventLogData(data);
-          setLoading(false)
-          
+          setLoading(false);
         }
       );
     }
   }, [userId]);
 
-  
-  return isLoading ? "Loading profile.." :  (
-    <div>
+  return isLoading ? (
+    "Loading profile.."
+  ) : (
+    <Container className="mt-4">
       <Timer eventLogData={eventLogData} userId={userId} />
       <TeamPanel />
-    </div>
+    </Container>
   );
 }

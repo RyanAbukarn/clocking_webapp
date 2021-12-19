@@ -29,6 +29,9 @@ const AppNavbar = ({ isAuthenticated, setIsAuthenticated }) => {
 
   const guestLinks = (
     <Nav>
+      <Link className="nav-link" to="/sign_up">
+        Register
+      </Link>
       <Link className="nav-link" to="/">
         Login
       </Link>
