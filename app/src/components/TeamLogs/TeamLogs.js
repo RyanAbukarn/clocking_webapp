@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Axios from "axios";
 import ActivityCard from "./LogCard";
-import { matchRoutes } from "react-router-dom";
+import getFormattedEvents from "../../utils/getFormattedEvents";
+import { Container } from "react-bootstrap";
 function TeamLogs() {
   const [activities, setActivities] = useState([]);
 
@@ -12,14 +13,14 @@ function TeamLogs() {
         userID: userID,
       },
     }).then((res) => {
+      const data = res.data || [];
+      const formattedData = getFormattedEvents(data);
+
       let map = new Map();
-      res.data.forEach((value) => {
-        if (map.has(value.id)) {
-          map.get(value.id).push(value.event, value.timestamp);
-        } else {
-          map.set(value.id, [value.full_name, value.event, value.timestamp]);
-        }
+      (Object.values(formattedData)).forEach((value) => {
+          map.set(value.userId, value);
       });
+      
       setActivities(Array.from(map.values()));
     });
   }
@@ -27,11 +28,11 @@ function TeamLogs() {
     loadActivities();
   }, []);
   return (
-    <div className="">
+    <Container className="mt-4">
       {activities.map((value, index) => (
         <ActivityCard key={index} activity={value} />
       ))}
-    </div>
+    </Container>
   );
 }
 export default TeamLogs;

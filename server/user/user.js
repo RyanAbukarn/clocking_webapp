@@ -29,7 +29,7 @@ const my_team_logs = (req, res) => {
   let today = new Date().toISOString().split("T")[0];
   let endToday = today + " 23:59:59";
   const userID = req.query.userID;
-  const getMyTeamLogs = `SELECT users.id, users.full_name, event_logs.event, event_logs.timestamp
+  const getMyTeamLogs = `SELECT users.id, users.full_name, event_logs.event, event_logs.timestamp, event_logs.shift_id
   FROM users
   JOIN event_logs on users.id = event_logs.user_id
   JOIN user_teams on users.id = user_teams.user_id

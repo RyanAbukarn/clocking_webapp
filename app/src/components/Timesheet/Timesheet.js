@@ -28,10 +28,10 @@ const Timesheet = ({ eventLogData }) => {
             return (
               <tr key={key}>
                 <td>{key}</td>
-                <td>{format(clockedInDate, "dd-mm-yyyy hh:mm:ss")}</td>
+                <td>{clockedInDate && format(clockedInDate, 'MMM dd, yyyy, hh:mm:ss')}</td>
                 <td>
                   {clockedOutDate &&
-                    format(clockedOutDate, "dd-mm-yyyy hh:mm:ss")}
+                    format(clockedOutDate, 'MMM dd, yyyy, hh:mm:ss')}
                 </td>
                 <td>{hoursWorked}</td>
               </tr>

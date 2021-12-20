@@ -11,8 +11,11 @@ const getFormattedEvents = (events) => events.reduce((res, e) => {
         summary.clockOut = new Date(e.timestamp);
 
     }
-    summary.userId = e["user_id"];
+    summary.userId = e["user_id"] || e["id"];
     summary.shiftId = e["shift_id"]
+    if(e["full_name"]){
+        summary.fullName = e["full_name"];
+    }
     return res;
 }, {});
 
