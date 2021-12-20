@@ -1,10 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
-import { Container } from "react-bootstrap";
+import { Container, Tabs } from "react-bootstrap";
 import Axios from "axios";
 import { useNavigate } from "react-router-dom";
 import TeamPanel from "../TeamLogs/TeamLogs";
-import Timer from "../Timer";
+import Timer from "../Timer/Timer";
+import Timesheet from "../Timesheet/Timesheet";
 
 export default function Profile({ isAuthenticated }) {
   // https://reactrouter.com/docs/en/v6/api#usenavigate
@@ -29,11 +30,21 @@ export default function Profile({ isAuthenticated }) {
   }, [userId]);
 
   return isLoading ? (
-    "Loading profile.."
+    <div>"Loading profile.."</div>
   ) : (
     <Container className="mt-4">
-      <Timer eventLogData={eventLogData} userId={userId} />
-      <TeamPanel />
+      <Tabs defaultActiveKey="clock" id="tab" className="mb-3">
+        <Tabs eventKey="clock" title="Clock In/Clock Out">
+          <Timer eventLogData={eventLogData} userId={userId} />
+        </Tabs>
+        <Tabs eventKey="timesheet" title="Timesheet">
+          <Timesheet eventLogData={eventLogData} />
+        </Tabs>
+        <Tabs eventKey="team" title="Team">
+          <TeamPanel />
+        </Tabs>
+      </Tabs>
     </Container>
+
   );
 }
