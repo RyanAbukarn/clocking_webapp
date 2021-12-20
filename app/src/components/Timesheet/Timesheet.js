@@ -1,6 +1,6 @@
 import React from "react";
 import { Table, Container } from "react-bootstrap";
-import format from 'date-fns/format'
+import format from "date-fns/format";
 import getFormattedEvents from "../../utils/getFormattedEvents";
 import differenceInMinutes from "date-fns/differenceInMinutes";
 
@@ -21,13 +21,21 @@ const Timesheet = ({ eventLogData }) => {
           {Object.values(events).map((item, key) => {
             const clockedInDate = item.clockIn;
             const clockedOutDate = item.clockOut;
-            const hoursWorked = clockedInDate && clockedOutDate && `${differenceInMinutes(clockedOutDate, clockedInDate)} minutes`;
-            return (<tr>
-              <td>{key}</td>
-              <td>{format(clockedInDate, 'dd-mm-yyyy hh:mm:ss')}</td>
-              <td>{clockedOutDate && format(clockedOutDate, 'dd-mm-yyyy hh:mm:ss')}</td>
-              <td>{hoursWorked}</td>
-            </tr>)
+            const hoursWorked =
+              clockedInDate &&
+              clockedOutDate &&
+              `${differenceInMinutes(clockedOutDate, clockedInDate)} minutes`;
+            return (
+              <tr key={key}>
+                <td>{key}</td>
+                <td>{format(clockedInDate, "dd-mm-yyyy hh:mm:ss")}</td>
+                <td>
+                  {clockedOutDate &&
+                    format(clockedOutDate, "dd-mm-yyyy hh:mm:ss")}
+                </td>
+                <td>{hoursWorked}</td>
+              </tr>
+            );
           })}
         </tbody>
       </Table>

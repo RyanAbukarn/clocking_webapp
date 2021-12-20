@@ -25,23 +25,21 @@ const login = (req, res) => {
   });
 };
 
-
-
 const my_team_logs = (req, res) => {
+  let today = new Date().toISOString().split("T")[0];
+  let endToday = today + " 23:59:59";
   const userID = req.query.userID;
-  const getMyTeamLogs = `
-        SELECT users.full_name, time_logs.clock_in, time_logs.clock_out
-        FROM users
-        JOIN time_logs on users.id = time_logs.user_id
-        JOIN user_teams on users.id = user_teams.user_id
-        WHERE user_teams.team_id = (SELECT team_id FROM user_teams WHERE user_id = (?));
-   `;
+  const getMyTeamLogs = `SELECT users.id, users.full_name, event_logs.event, event_logs.timestamp
+  FROM users
+  JOIN event_logs on users.id = event_logs.user_id
+  JOIN user_teams on users.id = user_teams.user_id
+  WHERE user_teams.team_id = (SELECT team_id FROM user_teams WHERE user_id = (?)) AND event_logs.timestamp between "${today}" and "${endToday}";`;
   db.query(getMyTeamLogs, userID, (err, result) => {
+    console.log(result);
     if (!result || result.length == 0)
       return res.status(404).send({ message: "NOT FOUND" });
     else res.send(result);
   });
 };
-
 
 module.exports = { create_user, login, my_team_logs };
