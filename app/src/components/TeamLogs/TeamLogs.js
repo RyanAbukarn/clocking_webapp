@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Axios from "axios";
 import ActivityCard from "./LogCard";
+import { matchRoutes } from "react-router-dom";
 function TeamLogs() {
   const [activities, setActivities] = useState([]);
+
   function loadActivities() {
     let userID = JSON.parse(localStorage.userInfo).id;
     Axios.get(`http://localhost:3000/api/user/team`, {
@@ -10,9 +12,15 @@ function TeamLogs() {
         userID: userID,
       },
     }).then((res) => {
-      console.log(res.data);
-
-      setActivities(res.data);
+      let map = new Map();
+      res.data.forEach((value) => {
+        if (map.has(value.id)) {
+          map.get(value.id).push(value.event, value.timestamp);
+        } else {
+          map.set(value.id, [value.full_name, value.event, value.timestamp]);
+        }
+      });
+      setActivities(Array.from(map.values()));
     });
   }
   useEffect(() => {
