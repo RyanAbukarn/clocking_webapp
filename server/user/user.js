@@ -26,8 +26,10 @@ const login = (req, res) => {
 };
 
 const my_team_logs = (req, res) => {
-  let today = new Date().toISOString().split("T")[0];
-  let endToday = today + " 23:59:59";
+  let today = new Date();
+  today.setDate(today.getDate() - 1);
+  today = today.toISOString().split("T")[0];
+  let endToday = today + " 23:59:50";
   const userID = req.query.userID;
   const getMyTeamLogs = `SELECT users.id, users.full_name, event_logs.event, event_logs.timestamp, event_logs.shift_id
   FROM users
