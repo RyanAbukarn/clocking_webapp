@@ -4,6 +4,11 @@ import format from "date-fns/format";
 import getFormattedEvents from "../../utils/getFormattedEvents";
 import differenceInMinutes from "date-fns/differenceInMinutes";
 
+/**
+ * 
+ * @param {props.eventLogData} - event logs 
+ * @returns Timesheet component - table to display the users clock in and clock out times and hours worked.
+ */
 const Timesheet = ({ eventLogData }) => {
   const events = getFormattedEvents(eventLogData);
   return (

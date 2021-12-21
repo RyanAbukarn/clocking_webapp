@@ -10,6 +10,7 @@ function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(localStorage.getItem("token") === "true");
   const [userId, setUserId] = useState()
 
+  // routes for different components
   return <BrowserRouter>
     <div className="App">
       <Navbar isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />

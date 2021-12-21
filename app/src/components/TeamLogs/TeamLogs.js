@@ -3,9 +3,15 @@ import Axios from "axios";
 import ActivityCard from "./LogCard";
 import getFormattedEvents from "../../utils/getFormattedEvents";
 import { Container } from "react-bootstrap";
+
+/**
+ * 
+ * @returns Displays the last log for all members in a specific team
+ */
 function TeamLogs() {
   const [activities, setActivities] = useState([]);
 
+  // gets team info
   function loadActivities() {
     let userID = JSON.parse(localStorage.userInfo).id;
     Axios.get(`http://localhost:3000/api/user/team`, {
@@ -24,6 +30,7 @@ function TeamLogs() {
       setActivities(Array.from(map.values()));
     });
   }
+
   useEffect(() => {
     loadActivities();
   }, []);

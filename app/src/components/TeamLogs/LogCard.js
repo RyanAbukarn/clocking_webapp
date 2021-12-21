@@ -2,9 +2,12 @@ import React from "react";
 import { format } from "date-fns";
 import { Card } from "react-bootstrap";
 
+/**
+ * 
+ * @param {props.activity} user activity 
+ * @returns Display activity card for user
+ */
 function LogCard({ activity }) {
-
-
   return (
     <div className="mt-4 flex justify-between">
       <Card style={{ width: "24rem" }}>

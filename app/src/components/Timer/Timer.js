@@ -5,6 +5,12 @@ import { Container, Card, Button } from "react-bootstrap";
 import useTimer from "../../hooks/useTimer";
 import { formatTime } from "../../utils";
 
+/**
+ * 
+ * @param {props.eventLogData} - event logs 
+ * @param {props.userId} -user id
+ * @returns Clock in/Clock out timer
+ */
 const Timer = ({ eventLogData = [], userId }) => {
   const [timerValue, setTimerValue] = useState(0);
   const [lastEventLog, setLastEventLog] = useState({});
@@ -26,6 +32,7 @@ const Timer = ({ eventLogData = [], userId }) => {
     }
   }, [eventLogData]);
 
+  // handles request to post clock in data
   const handleClockIn = () => {
     Axios.post("http://localhost:3000/api/event", {
       clocked_in: true,
@@ -35,6 +42,7 @@ const Timer = ({ eventLogData = [], userId }) => {
     });
   };
 
+  // handles request to post clock out data
   const handleClockOut = () => {
     Axios.post("http://localhost:3000/api/event", {
       clocked_in: false,

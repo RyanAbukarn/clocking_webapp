@@ -3,6 +3,12 @@ import Axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Form, Button, Container } from "react-bootstrap";
 
+/**
+ * 
+ * @param {props.setIsAuthenticated} - function to set authenticated user 
+ *  @param {props.isAuthenticated} - check if user is authenticated 
+ * @returns 
+ */
 function Login({ setIsAuthenticated, isAuthenticated }) {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
@@ -14,6 +20,7 @@ function Login({ setIsAuthenticated, isAuthenticated }) {
     }
   }, [isAuthenticated, navigate]);
 
+  // post request to check if user exists and login
   const submitUser = () => {
     Axios.post("http://localhost:3000/api/user/login", {
       password: password,

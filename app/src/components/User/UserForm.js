@@ -2,12 +2,17 @@ import React, { useState } from "react";
 import Axios from "axios";
 import { Form, Button, Container } from "react-bootstrap";
 
+/**
+ * 
+ * @returns User Form component to allow users to register 
+ */
 function UserForm() {
   const [fullname, setFullname] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
 
   const submitUser = () => {
+    // post request to create user
     Axios.post("http://localhost:3000/api/user/user_create", {
       fullname: fullname,
       password: password,

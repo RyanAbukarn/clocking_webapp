@@ -7,6 +7,11 @@ import TeamPanel from "../TeamLogs/TeamLogs";
 import Timer from "../Timer/Timer";
 import Timesheet from "../Timesheet/Timesheet";
 
+/**
+ * 
+ * @param {props.isAuthenticated} - check if user is logged in 
+ * @returns Profile component that displays timer, timesheet and teams 
+ */
 export default function Profile({ isAuthenticated }) {
   // https://reactrouter.com/docs/en/v6/api#usenavigate
   const navigate = useNavigate();
@@ -15,6 +20,7 @@ export default function Profile({ isAuthenticated }) {
 
   const userId = JSON.parse(localStorage.userInfo).id;
 
+  // get events by user id if authenticated
   useEffect(() => {
     if (!isAuthenticated) {
       navigate("/");

@@ -3,10 +3,12 @@ import { Link, useNavigate } from "react-router-dom";
 import { Navbar, Container, Nav, Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
+// Navbar
 const AppNavbar = ({ isAuthenticated, setIsAuthenticated }) => {
   const navigate = useNavigate();
   const fullName = isAuthenticated ? JSON.parse(localStorage.userInfo).full_name : '';
-
+ 
+  // links to be displayed when user is logged in
   const authLinks = (
     <>
       <Nav>
@@ -27,6 +29,7 @@ const AppNavbar = ({ isAuthenticated, setIsAuthenticated }) => {
     </>
   );
 
+  // links to be displayed when user is not logged in
   const guestLinks = (
     <Nav>
       <Link className="nav-link" to="/sign_up">
